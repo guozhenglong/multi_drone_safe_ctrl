@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 import rospy
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, TwistStamped
 
 def cmd_CB(data):
+    cmd_data = TwistStamped()
+    cmd_data.header.stamp = rospy.Time.now()
     print(data)
+
     # rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
 
 def sub_cmd():

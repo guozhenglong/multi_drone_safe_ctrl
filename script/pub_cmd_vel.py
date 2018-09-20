@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
-# from std_msgs.msg import String
+from std_msgs.msg import String
 from aruco_navigation.msg import Navdata_aruco
 from std_msgs.msg import Header
 from geometry_msgs.msg import Pose, Point, Vector3, Twist
@@ -9,18 +9,18 @@ from geometry_msgs.msg import Pose, Point, Vector3, Twist
 def pub_pos():
     rospy.init_node('pub_navdata')
     pub_nav = rospy.Publisher('/navdata_uav', Navdata_aruco, queue_size=1)
-    # pub_cmd = rospy.Publisher('/cmd_input', Twist, queue_size=1)
+    pub_cmd = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     r = rospy.Rate(20) 
     i = 0
     while not rospy.is_shutdown():
         print(i)
-        # cmd_input = Twist()
-        # cmd_input.linear.x = 0.0
-        # cmd_input.linear.y = 0.0
-        # cmd_input.linear.z = 0.0
-        # cmd_input.angular.x = 0.0
-        # cmd_input.angular.y = 0.0
-        # cmd_input.angular.z = 0.0
+        cmd_input = Twist()
+        cmd_input.linear.x = 0.0
+        cmd_input.linear.y = 0.0
+        cmd_input.linear.z = 0.2
+        cmd_input.angular.x = 0.0
+        cmd_input.angular.y = 0.0
+        cmd_input.angular.z = 0.0
 
         msg_data = Navdata_aruco()
         msg_data.header = Header()
@@ -49,7 +49,7 @@ def pub_pos():
 
         i = i+1
         pub_nav.publish(msg_data)
-        # pub_cmd.publish(cmd_input)
+        pub_cmd.publish(cmd_input)
         r.sleep()
 
 if __name__ == '__main__':

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-       <arg name="navdata_topic_name" 	default="/navdata_uav" />
-       <arg name="input_cmd_topic_name" 	default="/bebop/cmd_input" />
-       <arg name="output_cmd_topic_name" 	default="/bebop/cmd_vel" />
+       <arg name="navdata_topic_name" 	default="ground_truth/state" />
+       <arg name="input_cmd_topic_name" 	default="cmd_input_origin" />
+       <arg name="output_cmd_topic_name" 	default="velocity_cmd" />
     
 	<!-- Launches the generate geo cmd node -->
     <node pkg="multi_drone_safe_ctrl" type="gen_geo_cmd_node" name="gen_geo_cmd_node" output="screen">
@@ -20,8 +20,8 @@
         <param name="x_b" value="20.0" />
         <param name="y_b" value="20.0" />
 
-        <remap from="/cmd_input" to="$(arg input_cmd_topic_name)"/>    
-        <remap from="/navdata_uav" to="$(arg navdata_topic_name)"/>    
-        <remap from="/uav_cmd_vel" to="$(arg output_cmd_topic_name)"/> 
+        <remap from="cmd_input_origin" to="$(arg input_cmd_topic_name)"/>
+        <remap from="navdata_uav" to="$(arg navdata_topic_name)"/>
+        <remap from="cmd_vel_add_geo" to="$(arg output_cmd_topic_name)"/>
     </node>
 </launch>
